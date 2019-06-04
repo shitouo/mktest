@@ -20,17 +20,17 @@ steps:
         case: 
             - case1:
                 # 当条件用截图表示时，说明这个条件很固定。可以用于不知道当前页面的逻辑下写测试用例。但是很有局限性
-                condition: '条件1的截图'
+                # condition: '条件1的截图'
                 condition: '$().length > 0'
                 expect: '情况1的截图'
                 errorMsg: '情况1页面有问题！'
             - case2:
-                condition: '条件1的截图'
+                # condition: '条件1的截图'
                 condition: '$().length'
                 expect: '情况2的截图'
                 errorMsg: '情况2页面有问题！'
             - case3:
-                condition: '条件1的截图'
+                # condition: '条件1的截图'
                 condition: '$().length'
                 expect: '情况3的截图'
                 errorMsg: '情况3页面有问题！'

@@ -1,0 +1,27 @@
+{
+  "name": "mktest",
+  "version": "1.0.0",
+  "description": "根据配置文件就可以完成端对端测试，不用编写复杂的测试代码，大大简化自动化测试的难度",
+  "main": ".eslintrc.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "yaml": "^1.6.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shitouo/mktest.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shitouo/mktest/issues"
+  },
+  "homepage": "https://github.com/shitouo/mktest#readme"
+}
