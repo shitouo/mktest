@@ -16,7 +16,7 @@ steps:
     - step3: 
         targetElement: '<a href="javascript:void(0);" action="addUser()" class="btn btn-primary">添加运营者</a>'
         event: 'click'
-        timeout: '100'
+        timeout: '10'
         case: 
             - case1:
                 # 当条件用截图表示时，说明这个条件很固定。可以用于不知道当前页面的逻辑下写测试用例。但是很有局限性
