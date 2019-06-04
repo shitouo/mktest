@@ -5,11 +5,33 @@ steps:
         targetElement: '<a href="/article/accountSettings" class="menu-sub-text ">帐号设置</a>'
         event: 'click'
         timeout: '10'
-        expect: 
-            show: '<a class="tab-text" href="/article/operatorManage">运营者管理</a>'
-        errorMsg: '帐号设置页面没有运营者管理'    
+        expect:  '截图的URL'
+        errorMsg: '帐号设置页面有问题！'
     - step2: 
         targetElement: '<a class="tab-text" href="/article/operatorManage">运营者管理</a>'
         event: 'click'
         timeout: '10'
-        expect: ''
+        expect: '截图的URL'
+        errorMsg: '运营者管理页面有问题！'
+    - step3: 
+        targetElement: '<a href="javascript:void(0);" action="addUser()" class="btn btn-primary">添加运营者</a>'
+        event: 'click'
+        timeout: '10'
+        case: 
+            - case1:
+                # 当条件用截图表示时，说明这个条件很固定。可以用于不知道当前页面的逻辑下写测试用例。但是很有局限性
+                condition: '条件1的截图'
+                condition: '$().length > 0'
+                expect: '情况1的截图'
+                errorMsg: '情况1页面有问题！'
+            - case2:
+                condition: '条件1的截图'
+                condition: '$().length'
+                expect: '情况2的截图'
+                errorMsg: '情况2页面有问题！'
+            - case3:
+                condition: '条件1的截图'
+                condition: '$().length'
+                expect: '情况3的截图'
+                errorMsg: '情况3页面有问题！'
+        errorMsg: '没有出现预期的情况！'    
