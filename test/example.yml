@@ -1,0 +1,15 @@
+# 这里是测试的yaml文件
+# 假设当前已经打开了om.qq.com页面，因为登录页有滑块
+steps:
+    - step1: 
+        targetElement: '<a href="/article/accountSettings" class="menu-sub-text ">帐号设置</a>'
+        event: 'click'
+        timeout: '10'
+        expect: 
+            show: '<a class="tab-text" href="/article/operatorManage">运营者管理</a>'
+        errorMsg: '帐号设置页面没有运营者管理'    
+    - step2: 
+        targetElement: '<a class="tab-text" href="/article/operatorManage">运营者管理</a>'
+        event: 'click'
+        timeout: '10'
+        expect: ''
