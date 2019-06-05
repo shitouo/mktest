@@ -1,37 +1,359 @@
 # 这里是测试的yaml文件
 # 假设当前已经打开了om.qq.com页面，因为登录页有滑块
-steps:
-    - step1: 
-        targetElement: '<a href="/article/accountSettings" class="menu-sub-text ">帐号设置</a>'
-        event: 'click'
-        timeout: '10'
-        expect:  '截图的URL'
-        errorMsg: '帐号设置页面有问题！'
-    - step2: 
-        targetElement: '<a class="tab-text" href="/article/operatorManage">运营者管理</a>'
-        event: 'click'
-        timeout: '10'
-        expect: '截图的URL'
-        errorMsg: '运营者管理页面有问题！'
-    - step3: 
-        targetElement: '<a href="javascript:void(0);" action="addUser()" class="btn btn-primary">添加运营者</a>'
-        event: 'click'
-        timeout: '10'
-        case: 
-            - case1:
-                # 当条件用截图表示时，说明这个条件很固定。可以用于不知道当前页面的逻辑下写测试用例。但是很有局限性
-                # condition: '条件1的截图'
-                condition: '$().length > 0'
-                expect: '情况1的截图'
-                errorMsg: '情况1页面有问题！'
-            - case2:
-                # condition: '条件1的截图'
-                condition: '$().length'
-                expect: '情况2的截图'
-                errorMsg: '情况2页面有问题！'
-            - case3:
-                # condition: '条件1的截图'
-                condition: '$().length'
-                expect: '情况3的截图'
-                errorMsg: '情况3页面有问题！'
-        errorMsg: '没有出现预期的情况！'    
+testCase:
+    testUrl: 'http://om.qq.com'
+    width: 1366
+    height: 768
+    # 是否录制样例，用来在第一次时录制正确的截图（作为后面测试时的对照物）
+    isRecordTemplate: true
+    cookies:
+        -
+            "domain": ".om.qq.com"
+            "expirationDate": 1559742781.14809
+            "hostOnly": false
+            "httpOnly": false
+            "name": "alertclicked"
+            "path": "/"
+            "sameSite": "no_restriction"
+            "secure": false
+            "session": false
+            "storeId": "0"
+            "value": "%7C1%7C"
+            "id": 1
+        -
+            "domain": ".om.qq.com"
+            "expirationDate": 1559749848.913406
+            "hostOnly": false
+            "httpOnly": false
+            "name": "omtoken"
+            "path": "/"
+            "sameSite": "no_restriction"
+            "secure": false
+            "session": false
+            "storeId": "0"
+            "value": "19b357f24e"
+            "id": 2
+        -
+            "domain": ".om.qq.com"
+            "expirationDate": 1559749848.913765
+            "hostOnly": false
+            "httpOnly": false
+            "name": "omtoken_expire"
+            "path": "/"
+            "sameSite": "no_restriction"
+            "secure": false
+            "session": false
+            "storeId": "0"
+            "value": "1559749848"
+            "id": 3
+        -
+            "domain": ".om.qq.com"
+            "expirationDate": 1559739629
+            "hostOnly": false
+            "httpOnly": false
+            "name": "ts_last"
+            "path": "/"
+            "sameSite": "no_restriction"
+            "secure": false
+            "session": false
+            "storeId": "0"
+            "value": "om.qq.com/"
+            "id": 4
+        -
+            "domain": ".om.qq.com"
+            "expirationDate": 1622809829
+            "hostOnly": false
+            "httpOnly": false
+            "name": "ts_uid"
+            "path": "/"
+            "sameSite": "no_restriction"
+            "secure": false
+            "session": false
+            "storeId": "0"
+            "value": "1834345180"
+            "id": 5
+        -
+            "domain": ".om.qq.com"
+            "expirationDate": 1560340380.91434
+            "hostOnly": false
+            "httpOnly": false
+            "name": "userid"
+            "path": "/"
+            "sameSite": "no_restriction"
+            "secure": false
+            "session": false
+            "storeId": "0"
+            "value": "8514"
+            "id": 6
+        -
+            "domain": ".om.qq.com"
+            "expirationDate": 1562316237
+            "hostOnly": false
+            "httpOnly": false
+            "name": "video_guid"
+            "path": "/"
+            "sameSite": "no_restriction"
+            "secure": false
+            "session": false
+            "storeId": "0"
+            "value": "b9ec4d86de6e3577"
+            "id": 7
+        -
+            "domain": ".om.qq.com"
+            "expirationDate": 1562316237
+            "hostOnly": false
+            "httpOnly": false
+            "name": "video_platform"
+            "path": "/"
+            "sameSite": "no_restriction"
+            "secure": false
+            "session": false
+            "storeId": "0"
+            "value": "2"
+            "id": 8
+        -
+            "domain": ".qq.com"
+            "hostOnly": false
+            "httpOnly": false
+            "name": "pgv_info"
+            "path": "/"
+            "sameSite": "no_restriction"
+            "secure": false
+            "session": true
+            "storeId": "0"
+            "value": "ssid=s9984791584"
+            "id": 9
+        -
+            "domain": ".qq.com"
+            "expirationDate": 2147385600
+            "hostOnly": false
+            "httpOnly": false
+            "name": "pgv_pvi"
+            "path": "/"
+            "sameSite": "no_restriction"
+            "secure": false
+            "session": false
+            "storeId": "0"
+            "value": "503019520"
+            "id": 10
+        -
+            "domain": ".qq.com"
+            "expirationDate": 2147385600
+            "hostOnly": false
+            "httpOnly": false
+            "name": "pgv_pvid"
+            "path": "/"
+            "sameSite": "no_restriction"
+            "secure": false
+            "session": false
+            "storeId": "0"
+            "value": "8749870431"
+            "id": 11
+        -
+            "domain": ".qq.com"
+            "hostOnly": false
+            "httpOnly": false
+            "name": "pgv_si"
+            "path": "/"
+            "sameSite": "no_restriction"
+            "secure": false
+            "session": true
+            "storeId": "0"
+            "value": "s7788220416"
+            "id": 12
+        -
+            "domain": ".qq.com"
+            "expirationDate": 2147483647.268447
+            "hostOnly": false
+            "httpOnly": false
+            "name": "ptcz"
+            "path": "/"
+            "sameSite": "no_restriction"
+            "secure": false
+            "session": false
+            "storeId": "0"
+            "value": "0668d2823d2b603d7db5618cfc6077f5e52a80a1f48d83af20853c196c02b2cf"
+            "id": 13
+        -
+            "domain": ".qq.com"
+            "hostOnly": false
+            "httpOnly": false
+            "name": "ptisp"
+            "path": "/"
+            "sameSite": "no_restriction"
+            "secure": false
+            "session": true
+            "storeId": "0"
+            "value": "cnc"
+            "id": 14
+        -
+            "domain": ".qq.com"
+            "expirationDate": 1562205954
+            "hostOnly": false
+            "httpOnly": false
+            "name": "ptui_loginuin"
+            "path": "/"
+            "sameSite": "no_restriction"
+            "secure": false
+            "session": false
+            "storeId": "0"
+            "value": "1095298857"
+            "id": 15
+        -
+            "domain": ".qq.com"
+            "expirationDate": 2147483647.268262
+            "hostOnly": false
+            "httpOnly": false
+            "name": "RK"
+            "path": "/"
+            "sameSite": "no_restriction"
+            "secure": false
+            "session": false
+            "storeId": "0"
+            "value": "ioQEFJeIYE"
+            "id": 16
+        -
+            "domain": ".qq.com"
+            "expirationDate": 1875084236
+            "hostOnly": false
+            "httpOnly": false
+            "name": "tvfe_boss_uuid"
+            "path": "/"
+            "sameSite": "no_restriction"
+            "secure": false
+            "session": false
+            "storeId": "0"
+            "value": "b1d57599232ce5af"
+            "id": 17
+        -
+            "domain": ".qq.com"
+            "hostOnly": false
+            "httpOnly": true
+            "name": "x-host-key-front"
+            "path": "/"
+            "sameSite": "no_restriction"
+            "secure": false
+            "session": true
+            "storeId": "0"
+            "value": "16b209cdc1c-c056d7d650a39d9a426f188b62e1c51b571082b1"
+            "id": 18
+        -
+            "domain": ".qq.com"
+            "hostOnly": false
+            "httpOnly": true
+            "name": "x-host-key-ngn"
+            "path": "/"
+            "sameSite": "no_restriction"
+            "secure": false
+            "session": true
+            "storeId": "0"
+            "value": "16b209cdbef-b8f5b26570558b37d1da85ff2c54fc60e1ec9c95"
+            "id": 19
+        -
+            "domain": "om.qq.com"
+            "expirationDate": 1559781030.544322
+            "hostOnly": true
+            "httpOnly": false
+            "name": "9e67236d07bdc7152e6e2b42b7f00f43"
+            "path": "/"
+            "sameSite": "no_restriction"
+            "secure": false
+            "session": false
+            "storeId": "0"
+            "value": "6571defe4a1b2ddd0f9db50cff937010d58015ada%253A4%253A%257Bi%253A0%253Bs%253A4%253A%25228514%2522%253Bi%253A1%253Bs%253A18%253A%2522origuo%2540tencent.com%2522%253Bi%253A2%253Bi%253A43200%253Bi%253A3%253Ba%253A15%253A%257Bs%253A6%253A%2522status%2522%253Bi%253A2%253Bs%253A5%253A%2522email%2522%253Bs%253A18%253A%2522origuo%2540tencent.com%2522%253Bs%253A9%253A%2522logintype%2522%253Bi%253A1%253Bs%253A3%253A%2522uin%2522%253BN%253Bs%253A5%253A%2522phone%2522%253BN%253Bs%253A4%253A%2522wxid%2522%253BN%253Bs%253A6%253A%2522imgurl%2522%253Bs%253A55%253A%2522http%253A%252F%252Finews.gtimg.com%252Fnewsapp_ls%252F0%252F7531561397_200200%252F0%2522%253Bs%253A4%253A%2522name%2522%253Bs%253A12%253A%2522%25E6%25B5%258B%25E6%25B5%258B%25E6%259D%25A5%25E4%25BA%2586%2522%253Bs%253A10%253A%2522isVerified%2522%253Bb%253A1%253Bs%253A10%253A%2522isRejected%2522%253Bb%253A0%253Bs%253A9%253A%2522agreeAcpt%2522%253Bb%253A0%253Bs%253A6%253A%2522pwdChg%2522%253Bb%253A0%253Bs%253A9%253A%2522avatarChg%2522%253Bb%253A0%253Bs%253A2%253A%2522lk%2522%253Bs%253A24%253A%2522iT9PAAUYJ5iOkqkJnypMmA00%2522%253Bs%253A2%253A%2522id%2522%253Bs%253A4%253A%25228514%2522%253B%257D%257D"
+            "id": 20
+        -
+            "domain": "om.qq.com"
+            "expirationDate": 1560304683.484274
+            "hostOnly": true
+            "httpOnly": false
+            "name": "fimgurl"
+            "path": "/"
+            "sameSite": "no_restriction"
+            "secure": false
+            "session": false
+            "storeId": "0"
+            "value": "http%3A%2F%2Finews.gtimg.com%2Fnewsapp_ls%2F0%2F7531561397_200200%2F0"
+            "id": 21
+        -
+            "domain": "om.qq.com"
+            "expirationDate": 1560304683.484138
+            "hostOnly": true
+            "httpOnly": false
+            "name": "fname"
+            "path": "/"
+            "sameSite": "no_restriction"
+            "secure": false
+            "session": false
+            "storeId": "0"
+            "value": "%E6%B5%8B%E6%B5%8B%E6%9D%A5%E4%BA%86"
+            "id": 22
+        -
+            "domain": "om.qq.com"
+            "expirationDate": 1559786283.917875
+            "hostOnly": true
+            "httpOnly": false
+            "name": "rmod"
+            "path": "/"
+            "sameSite": "no_restriction"
+            "secure": false
+            "session": false
+            "storeId": "0"
+            "value": "1"
+            "id": 23
+        -
+            "domain": "om.qq.com"
+            "expirationDate": 1559745030.543706
+            "hostOnly": true
+            "httpOnly": false
+            "name": "TSID"
+            "path": "/"
+            "sameSite": "no_restriction"
+            "secure": false
+            "session": false
+            "storeId": "0"
+            "value": "2gqtsos9rss5qq302jg5663n73"
+            "id": 24
+    testSteps:
+        -
+            targetElement: '<a href="/article/accountSettings" class="menu-sub-text">帐号设置</a>'
+            event: 'click'
+            timeout: '10'
+            expect:  '截图的URL'
+            # 截图名称，用来保存截图的名称
+            screenshotName: 'accountSettings'
+            errorMsg: '帐号设置页面有问题！'
+        -
+            targetElement: '<a class="tab-text" href="/article/operatorManage">运营者管理</a>'
+            event: 'click'
+            timeout: '10'
+            expect: '截图的URL'
+            screenshotName: 'operatorManage'
+            errorMsg: '运营者管理页面有问题！'
+        -
+            targetElement: '<a href="javascript:void(0);" action="addUser()" class="btn btn-primary">添加运营者</a>'
+            event: 'click'
+            timeout: '10'
+            case: 
+                -
+                    # 当条件用截图表示时，说明这个条件很固定。可以用于不知道当前页面的逻辑下写测试用例。但是很有局限性
+                    # condition: '条件1的截图'
+                    condition: '$().length > 0'
+                    expect: '情况1的截图'
+                    screenshotName: 'case1'
+                    errorMsg: '情况1页面有问题！'
+                -
+                    # condition: '条件1的截图'
+                    condition: '$().length'
+                    expect: '情况2的截图'
+                    screenshotName: 'case2'
+                    errorMsg: '情况2页面有问题！'
+                -
+                    # condition: '条件1的截图'
+                    condition: '$().length'
+                    expect: '情况3的截图'
+                    screenshotName: 'case3'
+                    errorMsg: '情况3页面有问题！'
+            errorMsg: '没有出现预期的情况！'    
+    
+
