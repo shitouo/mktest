@@ -4,16 +4,57 @@
 const YAML = require('yaml');
 const fs = require('fs');
 const puppeteer = require('puppeteer');
+const htmlparser = require('htmlparser2');
 
 class Mktest {
+    getTargetElementSelector(targetElement) {
+        const domObj = htmlparser.parseDOM(targetElement)[0];
+        const attribs = domObj.attribs;
+        let targetElementSelector = domObj.name;
+        if (!attribs) {
+            return targetElementSelector;
+        }
+        for (let attrKey in attribs) {
+            if (!Object.prototype.hasOwnProperty.call(attribs, attrKey)) {
+                continue;
+            }
+            const attrValue = attribs[attrKey];
+            if (attrKey === 'class') {
+                const classNameList = attrValue.split(' ');
+                targetElementSelector = classNameList.reduce((result, className) => {
+                    return result + `.${className}`;
+                }, targetElementSelector);
+            } else if (attrKey === 'id') {
+                targetElementSelector = `${targetElementSelector}#${attrValue}`;
+            } else {
+                if (!attrValue) {
+                    targetElementSelector = `${targetElementSelector}[${attrKey}]`;
+                } else {
+                    targetElementSelector = `${targetElementSelector}[${attrKey}]=${attrValue}`;
+                }
+            }
+        }
+    }
 
     // 执行具体的一步test
-    async exctTestStep(testStep) {
+    async exctTestStep(testStep, page, isRecordTemplate) {
+        if (!testStep) {
+            return false;
+        }
+        const { targetElement, event, timeout } = testStep;
         // 获取到targetElement
+        const targetElementSelector = this.getTargetElementSelector(targetElement);
         // 执行targetElement的event事件
-        // 等待1s后执行截图
-        // 保存截图
+        $(targetElementSelector).trigger(event);
+        // 等待timeout后执行截图，并保存
+        page.waitFor(timeout);
+        page.screenshot({
+            path: isRecordTemplate ? '../recordTemplate' : '../testResult'
+        });
         // 判断是否是录制样板，如果不是，请求图片diff接口
+        if (!isRecordTemplate) {
+            // 请求diff图片的接口
+        }
         // 根据图片识别结果，判断时否通过测试，并给出相应提示
     }
 
@@ -22,7 +63,7 @@ class Mktest {
         if (!testCase) {
             return;
         }
-        const { testUrl, width, height, cookies, testSteps } = testCase;
+        const { testUrl, width, height, cookies, testSteps, isRecordTemplate } = testCase;
         const browser = await puppeteer.launch({
             headless: false,
         });
@@ -35,7 +76,7 @@ class Mktest {
         await page.goto(testUrl);
         await page.waitFor(500);
         testSteps.forEach(testStep => {
-            this.exctTestStep(testStep);
+            this.exctTestStep(testStep, page, isRecordTemplate);
         });
     }
 
@@ -53,7 +94,6 @@ class Mktest {
 
         const file = fs.readFileSync(testCasePath, 'utf8');
         const testCase = this.parseYml(file);
-        console.log(testCase);
         this.exct(testCase);
     }
 }
