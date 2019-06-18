@@ -8,6 +8,8 @@
   },
   "dependencies": {
     "htmlparser2": "^3.10.1",
+    "jQuery": "^1.7.4",
+    "jsdom": "^15.1.1",
     "puppeteer": "^1.17.0",
     "yaml": "^1.6.0"
   },

@@ -5,6 +5,7 @@ const YAML = require('yaml');
 const fs = require('fs');
 const puppeteer = require('puppeteer');
 const htmlparser = require('htmlparser2');
+const child_process = require('child_process');
 
 class Mktest {
     getTargetElementSelector(targetElement) {
@@ -45,12 +46,28 @@ class Mktest {
         // 获取到targetElement
         const targetElementSelector = this.getTargetElementSelector(targetElement);
         // 执行targetElement的event事件
-        $(targetElementSelector).trigger(event);
+        if (event === 'click') {
+            page.click(targetElementSelector);
+        }
         // 等待timeout后执行截图，并保存
         page.waitFor(timeout);
         page.screenshot({
-            path: isRecordTemplate ? '../recordTemplate' : '../testResult'
+            path: isRecordTemplate ? './recordTemplate/1.jpeg' : './testResult/1.jpeg',
+            type: 'jpeg'
         });
+
+        // test
+        const workerProcess = child_process.exec('python ./src/test.py', function(error, stdout, stderr) {
+            if (error) {
+                console.log(`python脚本执行错误：${error.stack}`);
+            }
+            console.log('stdout: ' + stdout);
+            console.log('stderr: ' + stderr);
+        });
+        workerProcess.on('exit', function() {
+            console.log('子进程已经退出');
+        });
+
         // 判断是否是录制样板，如果不是，请求图片diff接口
         if (!isRecordTemplate) {
             // 请求diff图片的接口
