@@ -31,10 +31,11 @@ class Mktest {
                 if (!attrValue) {
                     targetElementSelector = `${targetElementSelector}[${attrKey}]`;
                 } else {
-                    targetElementSelector = `${targetElementSelector}[${attrKey}]=${attrValue}`;
+                    targetElementSelector = `${targetElementSelector}[${attrKey}="${attrValue}"]`;
                 }
             }
         }
+        return targetElementSelector;
     }
 
     // 执行具体的一步test
@@ -42,27 +43,35 @@ class Mktest {
         if (!testStep) {
             return false;
         }
-        const { targetElement, event, timeout } = testStep;
+        const { targetElement, event, screenshotName, timeout, index } = testStep;
         // 获取到targetElement
         const targetElementSelector = this.getTargetElementSelector(targetElement);
+        // 等待当前targetElement出现到页面上
+        await page.waitForSelector(targetElementSelector);
         // 执行targetElement的event事件
         if (event === 'click') {
-            page.click(targetElementSelector);
+            await page.click(targetElementSelector);
         }
         // 等待timeout后执行截图，并保存
         page.waitFor(timeout);
         page.screenshot({
-            path: isRecordTemplate ? './recordTemplate/1.jpeg' : './testResult/1.jpeg',
-            type: 'jpeg'
+            path: isRecordTemplate ? `./recordTemplate/${screenshotName}.jpeg` : `./testResult/${screenshotName}.jpeg`,
+            type: 'jpeg',
+            fullPage: true
         });
 
         // test
-        const workerProcess = child_process.exec('python ./src/test.py', function(error, stdout, stderr) {
+        const workerProcess = child_process.exec(`python ./src/test.py './recordTemplate/${screenshotName}.jpeg' './recordTemplate/${screenshotName}.jpeg'`, function(error, stdout, stderr) {
             if (error) {
                 console.log(`python脚本执行错误：${error.stack}`);
             }
-            console.log('stdout: ' + stdout);
-            console.log('stderr: ' + stderr);
+            if (stdout === 'true') {
+                // 图片一致
+                console.log(`步骤${index}通过测试`);
+            } else {
+                // 图片不一致
+                throw new Error(`步骤${index}未通过测试`);
+            }
         });
         workerProcess.on('exit', function() {
             console.log('子进程已经退出');
@@ -92,8 +101,8 @@ class Mktest {
         page.setCookie(...cookies);
         await page.goto(testUrl);
         await page.waitFor(500);
-        testSteps.forEach(testStep => {
-            this.exctTestStep(testStep, page, isRecordTemplate);
+        testSteps.forEach(async testStep => {
+            await this.exctTestStep(testStep, page, isRecordTemplate);
         });
     }
 

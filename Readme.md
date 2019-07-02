@@ -24,7 +24,8 @@
 5. 登录时，碰到了滑块限制。---解决方案采用写cookie的方式。但是一个页面的cookie可能很多，所以我们需要一款工具来帮助我们提取一个页面的cookie，EditThisCookie---chrome的扩展程序
 6. 如何精确地找到targetElement。如果使用简单的字符串识别或者切割，碰到各种不规则的写法就没有办法了。但是我们的HTML解析器却从来不受这些不规范写法的影响，所以考虑是否能够借鉴或者直接使用HTML解析器。 htmlparser2
 7. 因为node中没有类似python中Image，那么好用的图片处理模块。所以图片处理肯定还是要通过python来实现，那么node和python如何交互可以是我们的项目更简单呢？ --- node中可以运行python脚本
-8. node环境下如何执行jQuery
+8. node环境下如何执行jQuery, 不用jQuery，pupeteer给了获取元素的方法
+9. 如何确保事件发生后，页面发生状态改变完成？
 
 ## 后续计划
 
