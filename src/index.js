@@ -61,11 +61,12 @@ class Mktest {
         });
 
         // test
-        const workerProcess = child_process.exec(`python ./src/test.py './recordTemplate/${screenshotName}.jpeg' './recordTemplate/${screenshotName}.jpeg'`, function(error, stdout, stderr) {
+        const workerProcess = await child_process.exec(`python ./src/test.py './recordTemplate/${screenshotName}.jpeg' './recordTemplate/${screenshotName}.jpeg'`, function(error, stdout, stderr) {
             if (error) {
                 console.log(`python脚本执行错误：${error.stack}`);
             }
-            if (stdout === 'true') {
+            console.log('stdout', stdout);
+            if (stdout.trim() == 'true') {
                 // 图片一致
                 console.log(`步骤${index}通过测试`);
             } else {
