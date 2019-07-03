@@ -53,8 +53,8 @@ class Mktest {
             await page.click(targetElementSelector);
         }
         // 等待timeout后执行截图，并保存
-        page.waitFor(timeout);
-        page.screenshot({
+        await page.waitFor(timeout);
+        await page.screenshot({
             path: isRecordTemplate ? `./recordTemplate/${screenshotName}.jpeg` : `./testResult/${screenshotName}.jpeg`,
             type: 'jpeg',
             fullPage: true
@@ -65,7 +65,6 @@ class Mktest {
             if (error) {
                 console.log(`python脚本执行错误：${error.stack}`);
             }
-            console.log('stdout', stdout);
             if (stdout.trim() == 'true') {
                 // 图片一致
                 console.log(`步骤${index}通过测试`);
