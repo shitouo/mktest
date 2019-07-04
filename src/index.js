@@ -61,7 +61,7 @@ class Mktest {
         });
 
         // test
-        const workerProcess = await child_process.exec(`python ./src/test.py './recordTemplate/${screenshotName}.jpeg' './recordTemplate/${screenshotName}.jpeg'`, function(error, stdout, stderr) {
+        const workerProcess = await child_process.exec(`python ./src/test.py './recordTemplate/${screenshotName}.jpeg' './testResult/${screenshotName}.jpeg'`, function(error, stdout, stderr) {
             if (error) {
                 console.log(`python脚本执行错误：${error.stack}`);
             }
