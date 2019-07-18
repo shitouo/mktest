@@ -38,6 +38,20 @@ class Mktest {
         return targetElementSelector;
     }
 
+    // 用户事件处理
+    async eventHandle(page, eventType, targetElementSelector) {
+        switch (eventType) {
+            case 'click': {
+                await page.click(targetElementSelector);
+                break;
+            }
+            case 'hover': {
+                await page.hover(targetElementSelector);
+                break;
+            }
+        }
+    }
+
     // 执行具体的一步test
     async exctTestStep(testStep, page, isRecordTemplate) {
         if (!testStep) {
@@ -49,6 +63,7 @@ class Mktest {
         // 等待当前targetElement出现到页面上
         await page.waitForSelector(targetElementSelector);
         // 执行targetElement的event事件
+        // await this.eventHandle(page, event, targetElementSelector);
         if (event === 'click') {
             await page.click(targetElementSelector);
         }
@@ -101,6 +116,28 @@ class Mktest {
         page.setCookie(...cookies);
         await page.goto(testUrl);
         await page.waitFor(500);
+
+        // 在开始执行实际的测试步骤前，添加对网络请求的劫持
+        await page.setRequestInterception(true);
+        let dataRecord = [];
+        page.on('request', request => {
+            if (request._resourceType === 'xhr') {
+                if (isRecordTemplate) {
+                    // 记录时需要保存所有的请求记录
+                    let key = request.url();
+                    page.on('response', async response => {
+                        if (response.url() === key) {
+                            const responseResult = await response.text();
+                            dataRecord.push({
+                                [key]: responseResult,
+                            });
+                            console.log(dataRecord);
+                        }
+                    });
+                }
+            }
+            request.continue();
+        });
         testSteps.forEach(async testStep => {
             await this.exctTestStep(testStep, page, isRecordTemplate);
         });
